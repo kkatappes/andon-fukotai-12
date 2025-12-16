@@ -1,0 +1,10 @@
+DB内のテーブル名：dbo.M_STATUSの内容
+
+STATUS_NO	STATUS_NAME
+1	準備
+2	稼働
+3	待機
+4	段取
+5	停止
+6	異常
+7	通信異常

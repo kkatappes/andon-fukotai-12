@@ -1,0 +1,216 @@
+@page "/"
+@using _12_fukotai.Models
+@inject IPlcDataCache PlcCache
+@inject IAndonDataService AndonDataService
+@implements IDisposable
+
+<div class="himeji-container">
+    <div class="header">
+        <h1>姫路1号 封口体</h1>
+        <div class="date">@DateTime.Now.ToString("yyyy/MM/dd")</div>
+    </div>
+
+    <div class="top-section">
+        <div class="device-table-container">
+            <table class="device-table">
+                <thead>
+                    <tr>
+                        <th>装置名</th>
+                        <th>生産数</th>
+                        <th>異常名・待機名</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var machine in _machineStatusList)
+                    {
+                        <tr class="@GetRowClass(machine)">
+                            <td>@GetMachineName(machine.MachineNo)</td>
+                            <td>@machine.ProductNum</td>
+                            <td>@machine.StatusMessage</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-item status-error">
+                <span>異常：</span><span class="status-value red-bg red-text">赤色・赤枠</span>
+            </div>
+            <div class="status-item status-stopped">
+                <span>停止：</span><span class="status-value white-bg red-text">赤色・白枠</span>
+            </div>
+            <div class="status-item status-running">
+                <span>稼動：</span><span class="status-value yellow-bg black-text">黒色・黒枠</span>
+            </div>
+            <div class="status-item status-maintenance">
+                <span>メンテナンス：</span><span class="status-value yellow-bg yellow-text">黄色・黄枠</span>
+            </div>
+            <div class="status-item status-material">
+                <span>材料アラーム：</span><span class="status-value blue-bg blue-text">青色・青枠</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="a-room-counter">
+        <div class="counter-label">A装置：2D印字回数</div>
+        <div class="counter-value">@FormatCounter("D8924")</div>
+    </div>
+
+    <div class="bottom-section">
+        <div class="bottom-left">
+            <table class="maintenance-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>負極カシメ1</th>
+                        <th>正極カシメ1</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>パンチメンテ</td>
+                        <td>@FormatCounter("D8848")</td>
+                        <td>@FormatCounter("D8854")</td>
+                    </tr>
+                    <tr>
+                        <td>パネ交換</td>
+                        <td>@FormatCounter("D8850")</td>
+                        <td>@FormatCounter("D8856")</td>
+                    </tr>
+                    <tr>
+                        <td>パンチ確認</td>
+                        <td>@FormatCounter("D8852")</td>
+                        <td>@FormatCounter("D8858")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="bottom-right">
+            <table class="thermal-camera-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>熱カシメ1</th>
+                        <th>熱カシメ2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ヘッド1</td>
+                        <td>@GetDeviceValue("D5400")</td>
+                        <td>@GetDeviceValue("D5420")</td>
+                    </tr>
+                    <tr>
+                        <td>ヘッド2</td>
+                        <td>@GetDeviceValue("D5401")</td>
+                        <td>@GetDeviceValue("D5421")</td>
+                    </tr>
+                    <tr>
+                        <td>ヘッド3</td>
+                        <td>@GetDeviceValue("D5402")</td>
+                        <td>@GetDeviceValue("D5422")</td>
+                    </tr>
+                    <tr>
+                        <td>ヘッド4</td>
+                        <td>@GetDeviceValue("D5403")</td>
+                        <td>@GetDeviceValue("D5423")</td>
+                    </tr>
+                    <tr>
+                        <td>ヘッド5</td>
+                        <td>@GetDeviceValue("D5404")</td>
+                        <td>@GetDeviceValue("D5424")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+    private System.Threading.Timer? _timer;
+    private List<MachineStatusDto> _machineStatusList = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // 初回SQLデータ取得
+        await RefreshSqlData();
+
+        // 5秒間隔で更新（SQLデータ + UI更新）
+        _timer = new System.Threading.Timer(async _ =>
+        {
+            await RefreshSqlData();
+            await InvokeAsync(StateHasChanged);
+        }, null, 0, 5000);
+    }
+
+    private async Task RefreshSqlData()
+    {
+        try
+        {
+            _machineStatusList = await AndonDataService.GetMachineStatusListAsync();
+        }
+        catch (Exception)
+        {
+            // エラー時は空のリストを維持
+            _machineStatusList = new List<MachineStatusDto>();
+        }
+    }
+
+    /// <summary>
+    /// デバイス番号から値を取得して文字列として返す
+    /// </summary>
+    private string GetDeviceValue(string deviceNumber)
+    {
+        var value = PlcCache.GetValueByDeviceNumber(deviceNumber);
+        return value?.ToString() ?? "--";
+    }
+
+    /// <summary>
+    /// デバイス番号から値を取得し、万単位でフォーマット
+    /// </summary>
+    private string FormatCounter(string deviceNumber)
+    {
+        var value = PlcCache.GetValueByDeviceNumber(deviceNumber);
+        if (value == null) return "--";
+
+        // 万単位に変換（小数点1桁）
+        double manValue = value.Value / 10000.0;
+        return $"{manValue:F1}万ショット/回";
+    }
+
+    /// <summary>
+    /// 装置番号から装置名を取得
+    /// </summary>
+    private string GetMachineName(short machineNo)
+    {
+        return machineNo switch
+        {
+            1 => "HMA",
+            2 => "FAW-A",
+            3 => "FAW-B",
+            4 => "FAW-CD",
+            5 => "FAW-E",
+            _ => $"Machine{machineNo}"
+        };
+    }
+
+    /// <summary>
+    /// 装置状態に応じた行のCSSクラスを取得
+    /// </summary>
+    private string GetRowClass(MachineStatusDto machine)
+    {
+        if (machine.ErrStatus == true) return "status-error";
+        if (machine.StopStatus == true) return "status-stopped";
+        if (machine.RunStatus == true) return "status-running";
+        if (machine.WaitStatus == true) return "status-material";
+        if (machine.ReadyStatus == true) return "status-maintenance";
+        return "";
+    }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+}

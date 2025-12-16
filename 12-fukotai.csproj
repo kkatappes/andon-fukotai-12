@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>12-fukotai</RootNamespace>
+    <AssemblyName>$(AssemblyName.Replace(' ', '_'))</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="src\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="KdmoniMasterEditor/**" />
+    <EmbeddedResource Remove="KdmoniMasterEditor/**" />
+    <None Remove="KdmoniMasterEditor/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.*" />
+  </ItemGroup>
+
+</Project>
