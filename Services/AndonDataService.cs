@@ -29,11 +29,14 @@ public class AndonDataService : IAndonDataService
         _configuration = configuration;
 
         // リンクサーバー設定を読み込み
-        var linkedServer = _configuration.GetValue<string>("LinkedServerSettings:Himeji1_LinkedServerName") ?? "10.60.40.14";
-        var database = _configuration.GetValue<string>("LinkedServerSettings:Himeji1_DatabaseName") ?? "KadouMoni3_144";
+        var useDatabaseName = _configuration.GetValue<string>("AndonSettings:UseDatabaseName") ?? "AndonDatabase_himeji1";
+        var prefix = useDatabaseName == "AndonDatabase_himeji2" ? "Himeji2" : "Himeji1";
+
+        var linkedServer = _configuration.GetValue<string>($"LinkedServerSettings:{prefix}_LinkedServerName") ?? "10.60.40.14";
+        var database = _configuration.GetValue<string>($"LinkedServerSettings:{prefix}_DatabaseName") ?? "KadouMoni3_144";
 
         _linkedServerQuery = $"[{linkedServer}].[{database}].[dbo]";
-        _logger.LogInformation("リンクサーバークエリ: {Query}", _linkedServerQuery);
+        _logger.LogInformation("リンクサーバークエリ: {Query} (UseDatabaseName: {UseDatabaseName})", _linkedServerQuery, useDatabaseName);
     }
 
     /// <summary>

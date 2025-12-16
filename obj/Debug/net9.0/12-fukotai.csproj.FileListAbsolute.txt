@@ -81,12 +81,7 @@ C:\Users\1101774\Documents\applications\12-fukotai\obj\Debug\net9.0\scopedcss\Co
 C:\Users\1101774\Documents\applications\12-fukotai\obj\Debug\net9.0\compressed\h8cvcorhcy-xabyatex5d.gz
 C:\Users\1101774\Documents\applications\12-fukotai\obj\Debug\net9.0\compressed\mn83e19yn1-xabyatex5d.gz
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\.claude-code.json
-C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\10.60.37.2_8192_aaaa.json
-C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\10.60.37.9_8192_aaaa.json
-C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\appsettings.json
-C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\src\10.60.37.100_8192_bbbb.json
-C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\src\10.60.37.98_8192_bbbb.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\12-fukotai.staticwebassets.runtime.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\12-fukotai.staticwebassets.endpoints.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\12-fukotai.exe
@@ -298,3 +293,8 @@ C:\Users\1010821\Desktop\project\12-fukotai\obj\Debug\net9.0\refint\12-fukotai.d
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Debug\net9.0\12-fukotai.pdb
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Debug\net9.0\12-fukotai.genruntimeconfig.cache
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Debug\net9.0\ref\12-fukotai.dll
+C:\Users\1010821\Desktop\project\12-fukotai\obj\Debug\net9.0\12-fukotai.sourcelink.json
+C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\10.60.37.2_8192_aaaa.json
+C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\10.60.37.9_8192_aaaa.json
+C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\src\10.60.37.100_8192_bbbb.json
+C:\Users\1010821\Desktop\project\12-fukotai\bin\Debug\net9.0\src\10.60.37.98_8192_bbbb.json
