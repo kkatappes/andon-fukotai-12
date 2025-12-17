@@ -12,15 +12,23 @@
   <PropertyGroup>
     <!-- 単一実行ファイルにする -->
     <PublishSingleFile>true</PublishSingleFile>
-    <!-- ランタイムを含めない（.NET 9.0ランタイムが必要） -->
-    <!-- ランタイムを含める場合は true に変更してください -->
-    <SelfContained>false</SelfContained>
+    <!-- ランタイムを含める -->
+    <SelfContained>true</SelfContained>
     <!-- Windows 64bit用（必要に応じて変更） -->
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <!-- 不要なファイルを削除してサイズを削減 -->
     <PublishTrimmed>false</PublishTrimmed>
-    <!-- Ready to Run コンパイル（起動高速化） -->
-    <PublishReadyToRun>true</PublishReadyToRun>
+    <!-- Ready to Run コンパイル（起動高速化だがファイルサイズ増加） -->
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <!-- 単一ファイル内のアセンブリを圧縮してサイズ削減 -->
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <!-- ネイティブライブラリを単一ファイルに含める -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <!-- すべてのコンテンツを単一ファイルに含める -->
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <!-- デバッグ情報を含めない（本番環境用） -->
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Hx/aBr8yp8U=",
+  "dgSpecHash": "lId9pTMcZDQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\1010821\\Desktop\\project\\12-fukotai\\12-fukotai.csproj",
   "expectedPackageFiles": [
@@ -88,8 +88,7 @@
     "C:\\Users\\1010821\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\1010821\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\9.0.8\\microsoft.netcore.app.runtime.win-x64.9.0.8.nupkg.sha512",
     "C:\\Users\\1010821\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\9.0.8\\microsoft.windowsdesktop.app.runtime.win-x64.9.0.8.nupkg.sha512",
-    "C:\\Users\\1010821\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\9.0.8\\microsoft.aspnetcore.app.runtime.win-x64.9.0.8.nupkg.sha512",
-    "C:\\Users\\1010821\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\9.0.8\\microsoft.netcore.app.crossgen2.win-x64.9.0.8.nupkg.sha512"
+    "C:\\Users\\1010821\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\9.0.8\\microsoft.aspnetcore.app.runtime.win-x64.9.0.8.nupkg.sha512"
   ],
   "logs": []
 }
