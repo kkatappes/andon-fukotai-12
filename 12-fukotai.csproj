@@ -8,6 +8,21 @@
     <AssemblyName>$(AssemblyName.Replace(' ', '_'))</AssemblyName>
   </PropertyGroup>
 
+  <!-- 単一ファイル発行設定 -->
+  <PropertyGroup>
+    <!-- 単一実行ファイルにする -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <!-- ランタイムを含めない（.NET 9.0ランタイムが必要） -->
+    <!-- ランタイムを含める場合は true に変更してください -->
+    <SelfContained>false</SelfContained>
+    <!-- Windows 64bit用（必要に応じて変更） -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <!-- 不要なファイルを削除してサイズを削減 -->
+    <PublishTrimmed>false</PublishTrimmed>
+    <!-- Ready to Run コンパイル（起動高速化） -->
+    <PublishReadyToRun>true</PublishReadyToRun>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="src\" />
   </ItemGroup>
@@ -21,6 +36,16 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.*" />
+  </ItemGroup>
+
+  <!-- appsettings.json を外部ファイルとして扱う -->
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <!-- 出力ディレクトリにコピー -->
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <!-- 単一ファイルに埋め込まない -->
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </None>
   </ItemGroup>
 
 </Project>
