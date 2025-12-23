@@ -60,6 +60,11 @@ public class GetJsonData : IGetJsonData
             var loadedFilesCount = 0;
             var errors = new List<string>();
 
+            // セットごとの読み込み成功数を追跡
+            // セット1: 末尾2,9 / セット2: 末尾98,100
+            var set1LoadedCount = 0; // 末尾2,9のセット
+            var set2LoadedCount = 0; // 末尾98,100のセット
+
             // 各パターンに対して処理
             foreach (var pattern in _jsonFilePatterns)
             {
@@ -73,7 +78,7 @@ public class GetJsonData : IGetJsonData
                 {
                     var error = $"Directory not found: {directory}";
                     errors.Add(error);
-                    _logger.LogWarning(error);
+                    _logger.LogDebug(error);
                     continue;  // 次のパターンへ
                 }
 
@@ -84,7 +89,7 @@ public class GetJsonData : IGetJsonData
                 {
                     var error = $"No files found for pattern: {pattern}";
                     errors.Add(error);
-                    _logger.LogWarning(error);
+                    _logger.LogDebug(error);
                     continue;  // 次のパターンへ
                 }
 
@@ -105,13 +110,23 @@ public class GetJsonData : IGetJsonData
                     {
                         var error = $"Deserialization returned null for file: {filePath}";
                         errors.Add(error);
-                        _logger.LogWarning(error);
+                        _logger.LogDebug(error);
                         continue;  // 次のパターンへ
                     }
 
                     // データをマージ
                     mergedData.Items.AddRange(plcData.Items);
                     loadedFilesCount++;
+
+                    // どのセットに属するかを判定
+                    if (pattern.Contains("-2_") || pattern.Contains("-9_"))
+                    {
+                        set1LoadedCount++;
+                    }
+                    else if (pattern.Contains("-98_") || pattern.Contains("-100_"))
+                    {
+                        set2LoadedCount++;
+                    }
 
                     _logger.LogDebug(
                         "Loaded {Count} items from {File}",
@@ -134,7 +149,7 @@ public class GetJsonData : IGetJsonData
                 }
             }
 
-            // 少なくとも1つのファイルが読み込めたか確認
+            // 少なくとも1つのセットが読み込めたか確認
             if (loadedFilesCount == 0)
             {
                 LastError = $"No files were loaded successfully. Errors: {string.Join(", ", errors)}";
@@ -142,14 +157,26 @@ public class GetJsonData : IGetJsonData
                 return null;
             }
 
+            // どちらのセットも1つもファイルが読み込めなかった場合のみ警告
+            // （片方のセットが読み込まれていれば成功とみなす）
+            if (set1LoadedCount == 0 && set2LoadedCount == 0)
+            {
+                // どちらのセットにも属さないファイルのみが読み込まれた場合
+                // （通常は発生しないが念のため）
+                _logger.LogDebug(
+                    "Files were loaded but none belong to the expected sets (2,9 or 98,100)");
+            }
+
             // 成功
             LastSuccessTime = DateTime.Now;
             LastError = null;
 
             _logger.LogInformation(
-                "Successfully loaded {TotalItems} PLC data items from {FileCount} files",
+                "Successfully loaded {TotalItems} PLC data items from {FileCount} files (Set1: {Set1Count}, Set2: {Set2Count})",
                 mergedData.Items.Count,
-                loadedFilesCount);
+                loadedFilesCount,
+                set1LoadedCount,
+                set2LoadedCount);
 
             return mergedData;
         }

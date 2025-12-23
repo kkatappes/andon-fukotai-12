@@ -1,0 +1,122 @@
+{
+  "source": {
+    "plcModel": "TEST_PLC_MODEL",
+    "ipAddress": "10.60.37.100",
+    "port": 8192
+  },
+  "timestamp": {
+    "local": "2025-12-12T10:00:00+09:00"
+  },
+  "items": [
+    {
+      "name": "A装置:2D印字回数",
+      "device": {
+        "code": "D",
+        "number": "8924"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 110000
+    },
+    {
+      "name": "負極カシメ1_パンチメンテ",
+      "device": {
+        "code": "D",
+        "number": "8848"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 120000
+    },
+    {
+      "name": "正極カシメ1_パンチメンテ",
+      "device": {
+        "code": "D",
+        "number": "8854"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 130000
+    },
+    {
+      "name": "負極カシメ1_パネ交換",
+      "device": {
+        "code": "D",
+        "number": "8850"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 140000
+    },
+    {
+      "name": "正極カシメ1_パネ交換",
+      "device": {
+        "code": "D",
+        "number": "8856"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 150000
+    },
+    {
+      "name": "負極カシメ1_パンチ確認",
+      "device": {
+        "code": "D",
+        "number": "8852"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 160000
+    },
+    {
+      "name": "正極カシメ1_パンチ確認",
+      "device": {
+        "code": "D",
+        "number": "8858"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 170000
+    },
+    {
+      "name": "FAW-A_完成品トレー不足",
+      "device": {
+        "code": "X",
+        "number": "576"
+      },
+      "digits": 1,
+      "unit": "bit",
+      "value": 0
+    },
+    {
+      "name": "FAW-B_完成品トレー不足",
+      "device": {
+        "code": "X",
+        "number": "376"
+      },
+      "digits": 1,
+      "unit": "bit",
+      "value": 0
+    },
+    {
+      "name": "FAW-CD_完成品トレー不足",
+      "device": {
+        "code": "X",
+        "number": "2AC"
+      },
+      "digits": 1,
+      "unit": "bit",
+      "value": 1
+    },
+    {
+      "name": "FAW-E_完成品トレー不足",
+      "device": {
+        "code": "X",
+        "number": "24D"
+      },
+      "digits": 1,
+      "unit": "bit",
+      "value": 0
+    }
+  ]
+}

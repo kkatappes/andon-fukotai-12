@@ -38,6 +38,11 @@ public class MachineStatusDto
     public bool? WaitStatus { get; set; }
 
     /// <summary>
+    /// 段取り状態フラグ
+    /// </summary>
+    public bool? ArrangeStatus { get; set; }
+
+    /// <summary>
     /// 停止状態フラグ
     /// </summary>
     public bool? StopStatus { get; set; }
@@ -63,4 +68,14 @@ public class MachineStatusDto
     /// 停止名（M_STOPから取得）
     /// </summary>
     public string? StopName { get; set; }
+
+    /// <summary>
+    /// 材料アラーム状態フラグ（JSONのXデバイスから取得）
+    /// </summary>
+    public bool MaterialAlarm { get; set; }
+
+    /// <summary>
+    /// 材料アラーム名（JSONのXデバイスから取得）
+    /// </summary>
+    public string? MaterialAlarmName { get; set; }
 }

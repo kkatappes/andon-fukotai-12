@@ -6,6 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// コンソールログを明示的に設定（単一実行ファイルでも表示されるようにする）
+builder.Logging.ClearProviders();
+builder.Logging.AddSimpleConsole(options =>
+{
+    options.IncludeScopes = false;
+    options.SingleLine = false;
+    options.TimestampFormat = "yyyy-MM-dd HH:mm:ss ";
+});
+
+// ログレベルを明示的に設定
+builder.Logging.SetMinimumLevel(LogLevel.Information);
+builder.Logging.AddFilter("Microsoft.AspNetCore", LogLevel.Warning);
+builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Information);
+builder.Logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Information);
+// _12_fukotai名前空間全体をInformationレベルで出力
+builder.Logging.AddFilter("_12_fukotai", LogLevel.Information);
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -38,7 +55,16 @@ builder.Services.AddScoped<IAndonDataService, AndonDataService>();
 builder.Services.AddSingleton<IMasterDataCache, MasterDataCache>();
 builder.Services.AddHostedService<MasterDataUpdateService>();
 
+// D_STATUSデータ監視サービス（5秒間隔でログ出力）
+builder.Services.AddHostedService<StatusDataMonitorService>();
+
 var app = builder.Build();
+
+// ログシステムが動作しているか確認
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("=== アプリケーション起動 ===");
+logger.LogInformation("使用データベース: {DbName}", databaseName);
+logger.LogInformation("接続文字列: {ConnectionString}", connectionString?.Substring(0, Math.Min(50, connectionString.Length)) + "...");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

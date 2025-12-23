@@ -1,0 +1,222 @@
+{
+  "source": {
+    "plcModel": "TEST_PLC_MODEL",
+    "ipAddress": "10.60.37.9",
+    "port": 8192
+  },
+  "timestamp": {
+    "local": "2025-12-12T10:00:00+09:00"
+  },
+  "items": [
+    {
+      "name": "熱カシメ1_ヘッド1",
+      "device": {
+        "code": "D",
+        "number": "5400"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 18
+    },
+    {
+      "name": "熱カシメ2_ヘッド1",
+      "device": {
+        "code": "D",
+        "number": "5420"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 19
+    },
+    {
+      "name": "熱カシメ1_ヘッド2",
+      "device": {
+        "code": "D",
+        "number": "5401"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 20
+    },
+    {
+      "name": "熱カシメ2_ヘッド2",
+      "device": {
+        "code": "D",
+        "number": "5421"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 21
+    },
+    {
+      "name": "熱カシメ1_ヘッド3",
+      "device": {
+        "code": "D",
+        "number": "5402"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 22
+    },
+    {
+      "name": "熱カシメ2_ヘッド3",
+      "device": {
+        "code": "D",
+        "number": "5422"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 23
+    },
+    {
+      "name": "熱カシメ1_ヘッド4",
+      "device": {
+        "code": "D",
+        "number": "5403"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 24
+    },
+    {
+      "name": "熱カシメ2_ヘッド4",
+      "device": {
+        "code": "D",
+        "number": "5423"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 25
+    },
+    {
+      "name": "熱カシメ1_ヘッド5",
+      "device": {
+        "code": "D",
+        "number": "5404"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 26
+    },
+    {
+      "name": "熱カシメ2_ヘッド5",
+      "device": {
+        "code": "D",
+        "number": "5424"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 27
+    },
+    {
+      "name": "熱カシメ1_ヘッド1_閾値",
+      "device": {
+        "code": "D",
+        "number": "8872"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 3
+    },
+    {
+      "name": "熱カシメ2_ヘッド1_閾値",
+      "device": {
+        "code": "D",
+        "number": "8882"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 17
+    },
+    {
+      "name": "熱カシメ1_ヘッド2_閾値",
+      "device": {
+        "code": "D",
+        "number": "8874"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 25
+    },
+    {
+      "name": "熱カシメ2_ヘッド2_閾値",
+      "device": {
+        "code": "D",
+        "number": "8884"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 30
+    },
+    {
+      "name": "熱カシメ1_ヘッド3_閾値",
+      "device": {
+        "code": "D",
+        "number": "8876"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 400
+    },
+    {
+      "name": "熱カシメ2_ヘッド3_閾値",
+      "device": {
+        "code": "D",
+        "number": "8886"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 22
+    },
+    {
+      "name": "熱カシメ1_ヘッド4_閾値",
+      "device": {
+        "code": "D",
+        "number": "8878"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 30
+    },
+    {
+      "name": "熱カシメ2_ヘッド4_閾値",
+      "device": {
+        "code": "D",
+        "number": "8888"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 30
+    },
+    {
+      "name": "熱カシメ1_ヘッド5_閾値",
+      "device": {
+        "code": "D",
+        "number": "8880"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 30
+    },
+    {
+      "name": "熱カシメ2_ヘッド5_閾値",
+      "device": {
+        "code": "D",
+        "number": "8890"
+      },
+      "digits": 1,
+      "unit": "word",
+      "value": 30
+    },
+    {
+      "name": "HMA_完成品トレー満杯",
+      "device": {
+        "code": "X",
+        "number": "1BA"
+      },
+      "digits": 1,
+      "unit": "bit",
+      "value": 1
+    }
+  ]
+}

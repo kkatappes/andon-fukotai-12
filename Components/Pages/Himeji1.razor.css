@@ -1,6 +1,9 @@
 .himeji-container {
     padding: 20px;
     font-family: 'MS Gothic', monospace;
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 100vh;
 }
 
 .header {
@@ -8,7 +11,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    border-bottom: 2px solid #000;
+    border-bottom: 3px double #ffffff;
     padding-bottom: 10px;
 }
 
@@ -38,7 +41,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border: 2px solid #000;
+    border: 3px double #ffffff;
     padding: 15px;
 }
 
@@ -51,15 +54,16 @@
 
 .status-value {
     padding: 2px 8px;
-    border: 1px solid #000;
+    border: 3px double #000;
+}
+
+/* 黒背景・白文字の場合は白の二重線 */
+.status-value.black-bg.white-text {
+    border: 3px double #ffffff;
 }
 
 .red-bg {
     background-color: #ff0000;
-}
-
-.red-text {
-    color: #ff0000;
 }
 
 .white-bg {
@@ -70,33 +74,29 @@
     background-color: #ffff00;
 }
 
-.yellow-text {
-    color: #ffff00;
-}
-
 .black-text {
     color: #000000;
 }
 
-.blue-bg {
-    background-color: #00ffff;
+.black-bg {
+    background-color: #000000;
 }
 
-.blue-text {
-    color: #0000ff;
-}
-
-.green-bg {
-    background-color: #00ff00;
+.white-text {
+    color: #ffffff;
 }
 
 .bottom-section {
     display: flex;
     gap: 20px;
+    align-items: flex-start;
 }
 
 .bottom-left {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
 .bottom-right {
@@ -106,18 +106,19 @@
 table {
     border-collapse: collapse;
     width: 100%;
-    border: 2px solid #000;
+    border: 3px double #ffffff;
 }
 
 table th,
 table td {
-    border: 1px solid #000;
+    border: 3px double #ffffff;
     padding: 8px;
     text-align: center;
 }
 
 table th {
-    background-color: #f0f0f0;
+    background-color: #333333;
+    color: #ffffff;
     font-weight: bold;
 }
 
@@ -138,7 +139,9 @@ table th {
     align-items: center;
     gap: 10px;
     padding: 10px;
-    border: 2px solid #000;
+    border: 3px double #ffffff;
+    border-bottom: none;
+    margin-bottom: 0;
 }
 
 .counter-label {
@@ -149,7 +152,10 @@ table th {
     padding: 8px 16px;
     font-size: 18px;
     font-weight: bold;
-    background-color: #ffffff;
+}
+
+.maintenance-table {
+    border-top: none;
 }
 
 .maintenance-table th:nth-child(1) {
@@ -161,18 +167,103 @@ table th {
     padding-left: 12px;
 }
 
-.maintenance-table tbody td {
-    background-color: #ffffff;
-}
-
-.thermal-camera-table th:nth-child(1) {
+.heat-crimping-table th:nth-child(1) {
     width: 80px;
 }
 
-.thermal-camera-table td {
+.heat-crimping-table td {
     height: 40px;
 }
 
-.thermal-camera-table tbody td {
-    background-color: #ffffff;
+/* 閾値チェック用スタイル（番号11～27） */
+
+/* 番号11: A装置:2D印字回数 */
+.counter-value.counter-normal {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.counter-value.counter-warning {
+    background-color: #ffff00;
+    color: #000000;
+    border: 5px solid #ffffff;
+    font-weight: bold;
+}
+
+/* 番号12～17: パンチメンテ、パネ交換、パンチ確認 */
+.maintenance-table tbody td.cell-normal {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.maintenance-table tbody td.cell-warning {
+    background-color: #ffff00;
+    color: #000000;
+    border: 5px solid #ffffff;
+    font-weight: bold;
+}
+
+/* 番号18～27: 熱カシメ1と2のヘッド1～5 */
+.heat-crimping-table tbody td.cell-normal {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.heat-crimping-table tbody td.cell-warning {
+    background-color: #ffff00;
+    color: #000000;
+    border: 5px solid #ffffff;
+    font-weight: bold;
+}
+
+/* 各テーブルの最初の列（ラベル列）は通常の背景色 */
+.maintenance-table tbody td:first-child {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.heat-crimping-table tbody td:first-child {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+/* 装置状態に応じた行スタイル（3列目：異常名・待機名列に適用） */
+
+/* 通常状態（READY/RUN/WAIT）：黒背景＋白文字＋白枠強調なし */
+.device-table tbody tr.status-normal td:nth-child(3) {
+    background-color: #000000;
+    color: #ffffff;
+    border: 3px double #ffffff;
+}
+
+/* 段取り状態（ARRANGE）：黄背景＋黒文字＋白枠強調あり */
+.device-table tbody tr.status-arrange td:nth-child(3) {
+    background-color: #ffff00;
+    color: #000000;
+    border: 5px solid #ffffff;
+    font-weight: bold;
+}
+
+/* 停止状態（STOP）：赤背景＋黒文字＋白枠強調あり */
+.device-table tbody tr.status-stopped td:nth-child(3) {
+    background-color: #ff0000;
+    color: #000000;
+    border: 5px solid #ffffff;
+    font-weight: bold;
+}
+
+/* 異常状態（ERR）：赤背景＋黒文字＋白枠強調あり */
+.device-table tbody tr.status-error td:nth-child(3) {
+    background-color: #ff0000;
+    color: #000000;
+    border: 5px solid #ffffff;
+    font-weight: bold;
+}
+
+/* 材料アラーム：黄背景＋黒文字＋白枠強調あり */
+.device-table tbody tr.status-material td:nth-child(3) {
+    background-color: #ffff00;
+    color: #000000;
+    border: 5px solid #ffffff;
+    font-weight: bold;
 }

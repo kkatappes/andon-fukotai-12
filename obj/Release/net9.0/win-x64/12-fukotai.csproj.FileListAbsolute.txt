@@ -1,9 +1,5 @@
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\.claude-code.json
-C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\10.60.37.2_8192_aaaa.json
-C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\10.60.37.9_8192_aaaa.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\appsettings.json
-C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\src\10.60.37.100_8192_bbbb.json
-C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\src\10.60.37.98_8192_bbbb.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\12-fukotai.staticwebassets.runtime.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\12-fukotai.staticwebassets.endpoints.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\12-fukotai.exe
@@ -146,7 +142,6 @@ C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\scopedcss
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\scopedcss\Components\Pages\Himeji1.razor.rz.scp.css
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\scopedcss\bundle\12-fukotai.styles.css
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\scopedcss\projectbundle\12-fukotai.bundle.scp.css
-C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\tqy0du2p2i-khy4lop6wu.gz
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\bnnfdpekqx-bqjiyaj88i.gz
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\4sxbtwqw4j-c2jlpeoesf.gz
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\zfwzzjycd7-erw9l3u2r3.gz
@@ -191,8 +186,6 @@ C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compresse
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\rf9ex91mni-h1s4sie4z3.gz
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\j6ackc8l2w-63fj8s7r0e.gz
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\dptecev7cj-0j3bgjxly4.gz
-C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\h8cvcorhcy-qg5pfaffae.gz
-C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\mn83e19yn1-qg5pfaffae.gz
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\staticwebassets.build.json
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\staticwebassets.build.json.cache
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\staticwebassets.development.json
@@ -516,3 +509,10 @@ C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\mscordbi.
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\mscorrc.dll
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\msquic.dll
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\aspnetcorev2_inprocess.dll
+C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\10-60-37-100_8192_bbbb.json
+C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\10-60-37-98_8192_bbbb.json
+C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\src\10-60-37-2_8192_aaaa.json
+C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\src\10-60-37-9_8192_aaaa.json
+C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\tqy0du2p2i-tkazyqvjqj.gz
+C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\h8cvcorhcy-oqngq7snfn.gz
+C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\mn83e19yn1-oqngq7snfn.gz

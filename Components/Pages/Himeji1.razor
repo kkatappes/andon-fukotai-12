@@ -2,11 +2,13 @@
 @using _12_fukotai.Models
 @inject IPlcDataCache PlcCache
 @inject IAndonDataService AndonDataService
+@inject IConfiguration Configuration
+@inject ILogger<Himeji1> Logger
 @implements IDisposable
 
 <div class="himeji-container">
     <div class="header">
-        <h1>姫路1号 封口体</h1>
+        <h1>@GetPageTitle()</h1>
         <div class="date">@DateTime.Now.ToString("yyyy/MM/dd")</div>
     </div>
 
@@ -34,31 +36,24 @@
         </div>
 
         <div class="status-bar">
-            <div class="status-item status-error">
-                <span>異常：</span><span class="status-value red-bg red-text">赤色・赤枠</span>
+            <div class="status-item status-error_stop">
+                <span>異常、停止：</span><span class="status-value red-bg black-text">黒文字・赤背景</span>
             </div>
-            <div class="status-item status-stopped">
-                <span>停止：</span><span class="status-value white-bg red-text">赤色・白枠</span>
+            <div class="status-item status-running_waiting">
+                <span>稼動、待機：</span><span class="status-value black-bg white-text">白文字・黒背景</span>
             </div>
-            <div class="status-item status-running">
-                <span>稼動：</span><span class="status-value yellow-bg black-text">黒色・黒枠</span>
-            </div>
-            <div class="status-item status-maintenance">
-                <span>メンテナンス：</span><span class="status-value yellow-bg yellow-text">黄色・黄枠</span>
-            </div>
-            <div class="status-item status-material">
-                <span>材料アラーム：</span><span class="status-value blue-bg blue-text">青色・青枠</span>
+            <div class="status-item status-maintenance_alarm">
+                <span>メンテ/アラーム：</span><span class="status-value yellow-bg black-text">黒文字・黄背景</span>
             </div>
         </div>
     </div>
 
-    <div class="a-room-counter">
-        <div class="counter-label">A装置：2D印字回数</div>
-        <div class="counter-value">@FormatCounter("D8924")</div>
-    </div>
-
     <div class="bottom-section">
         <div class="bottom-left">
+            <div class="a-room-counter">
+                <div class="counter-label">A装置：2D印字回数</div>
+                <div class="counter-value @GetCounterClass("D8924", "D8926")">@FormatCounter("D8924")</div>
+            </div>
             <table class="maintenance-table">
                 <thead>
                     <tr>
@@ -70,25 +65,25 @@
                 <tbody>
                     <tr>
                         <td>パンチメンテ</td>
-                        <td>@FormatCounter("D8848")</td>
-                        <td>@FormatCounter("D8854")</td>
+                        <td class="@GetCellClass("D8848", "D3960")">@FormatCounter("D8848")</td>
+                        <td class="@GetCellClass("D8854", "D3966")">@FormatCounter("D8854")</td>
                     </tr>
                     <tr>
                         <td>パネ交換</td>
-                        <td>@FormatCounter("D8850")</td>
-                        <td>@FormatCounter("D8856")</td>
+                        <td class="@GetCellClass("D8850", "D3962")">@FormatCounter("D8850")</td>
+                        <td class="@GetCellClass("D8856", "D3968")">@FormatCounter("D8856")</td>
                     </tr>
                     <tr>
                         <td>パンチ確認</td>
-                        <td>@FormatCounter("D8852")</td>
-                        <td>@FormatCounter("D8858")</td>
+                        <td class="@GetCellClass("D8852", "D3964")">@FormatCounter("D8852")</td>
+                        <td class="@GetCellClass("D8858", "D3970")">@FormatCounter("D8858")</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="bottom-right">
-            <table class="thermal-camera-table">
+            <table class="heat-crimping-table">
                 <thead>
                     <tr>
                         <th></th>
@@ -99,28 +94,28 @@
                 <tbody>
                     <tr>
                         <td>ヘッド1</td>
-                        <td>@GetDeviceValue("D5400")</td>
-                        <td>@GetDeviceValue("D5420")</td>
+                        <td class="@GetCellClass("D5400", "D8872")">@GetDeviceValue("D5400")</td>
+                        <td class="@GetCellClass("D5420", "D8882")">@GetDeviceValue("D5420")</td>
                     </tr>
                     <tr>
                         <td>ヘッド2</td>
-                        <td>@GetDeviceValue("D5401")</td>
-                        <td>@GetDeviceValue("D5421")</td>
+                        <td class="@GetCellClass("D5401", "D8874")">@GetDeviceValue("D5401")</td>
+                        <td class="@GetCellClass("D5421", "D8884")">@GetDeviceValue("D5421")</td>
                     </tr>
                     <tr>
                         <td>ヘッド3</td>
-                        <td>@GetDeviceValue("D5402")</td>
-                        <td>@GetDeviceValue("D5422")</td>
+                        <td class="@GetCellClass("D5402", "D8876")">@GetDeviceValue("D5402")</td>
+                        <td class="@GetCellClass("D5422", "D8886")">@GetDeviceValue("D5422")</td>
                     </tr>
                     <tr>
                         <td>ヘッド4</td>
-                        <td>@GetDeviceValue("D5403")</td>
-                        <td>@GetDeviceValue("D5423")</td>
+                        <td class="@GetCellClass("D5403", "D8878")">@GetDeviceValue("D5403")</td>
+                        <td class="@GetCellClass("D5423", "D8888")">@GetDeviceValue("D5423")</td>
                     </tr>
                     <tr>
                         <td>ヘッド5</td>
-                        <td>@GetDeviceValue("D5404")</td>
-                        <td>@GetDeviceValue("D5424")</td>
+                        <td class="@GetCellClass("D5404", "D8880")">@GetDeviceValue("D5404")</td>
+                        <td class="@GetCellClass("D5424", "D8890")">@GetDeviceValue("D5424")</td>
                     </tr>
                 </tbody>
             </table>
@@ -145,14 +140,41 @@
         }, null, 0, 5000);
     }
 
+    /// <summary>
+    /// appsettings.jsonのUseDatabaseNameから数字を抽出してページタイトルを生成
+    /// </summary>
+    private string GetPageTitle()
+    {
+        var dbName = Configuration["AndonSettings:UseDatabaseName"] ?? "";
+        // "AndonDatabase_himejix" から数字を抽出
+        var match = System.Text.RegularExpressions.Regex.Match(dbName, @"himeji(\d+)");
+        if (match.Success)
+        {
+            return $"姫路{match.Groups[1].Value}号 封口体";
+        }
+        return "姫路1号 封口体"; // デフォルト
+    }
+
     private async Task RefreshSqlData()
     {
         try
         {
-            _machineStatusList = await AndonDataService.GetMachineStatusListAsync();
+            Logger.LogInformation("RefreshSqlData開始");
+            var allMachines = await AndonDataService.GetMachineStatusListAsync();
+            Logger.LogInformation("GetMachineStatusListAsync完了: {Count}件", allMachines.Count);
+
+            // 表示順序を指定: MACHINE_NO 2→3→4→5→1
+            var displayOrder = new[] { 1, 2, 3, 4, 5 };
+            _machineStatusList = allMachines
+            .Where(m => displayOrder.Contains(m.MachineNo))
+            .OrderBy(m => Array.IndexOf(displayOrder, (int)m.MachineNo))
+            .ToList();
+
+            Logger.LogInformation("RefreshSqlData完了: 表示対象{Count}件", _machineStatusList.Count);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Logger.LogError(ex, "RefreshSqlDataでエラー発生");
             // エラー時は空のリストを維持
             _machineStatusList = new List<MachineStatusDto>();
         }
@@ -181,17 +203,49 @@
     }
 
     /// <summary>
+    /// 閾値チェックを行い、適切なCSSクラスを返す（番号11用）
+    /// </summary>
+    private string GetCounterClass(string currentDeviceNumber, string thresholdDeviceNumber)
+    {
+        var currentValue = PlcCache.GetValueByDeviceNumber(currentDeviceNumber);
+        var thresholdValue = PlcCache.GetValueByDeviceNumber(thresholdDeviceNumber);
+
+        // データが取得できない場合は通常スタイル
+        if (currentValue == null || thresholdValue == null)
+            return "counter-normal";
+
+        // 現在値 > 閾値の場合は警告スタイル
+        return currentValue.Value > thresholdValue.Value ? "counter-warning" : "counter-normal";
+    }
+
+    /// <summary>
+    /// 閾値チェックを行い、適切なCSSクラスを返す（番号12～27用）
+    /// </summary>
+    private string GetCellClass(string currentDeviceNumber, string thresholdDeviceNumber)
+    {
+        var currentValue = PlcCache.GetValueByDeviceNumber(currentDeviceNumber);
+        var thresholdValue = PlcCache.GetValueByDeviceNumber(thresholdDeviceNumber);
+
+        // データが取得できない場合は通常スタイル
+        if (currentValue == null || thresholdValue == null)
+            return "cell-normal";
+
+        // 現在値 > 閾値の場合は警告スタイル
+        return currentValue.Value > thresholdValue.Value ? "cell-warning" : "cell-normal";
+    }
+
+    /// <summary>
     /// 装置番号から装置名を取得
     /// </summary>
     private string GetMachineName(short machineNo)
     {
         return machineNo switch
         {
-            1 => "HMA",
-            2 => "FAW-A",
-            3 => "FAW-B",
-            4 => "FAW-CD",
-            5 => "FAW-E",
+            1 => "FAW-A",
+            2 => "FAW-B",
+            3 => "FAW-CD",
+            4 => "FAW-E",
+            5 => "HMA",
             _ => $"Machine{machineNo}"
         };
     }
@@ -201,11 +255,24 @@
     /// </summary>
     private string GetRowClass(MachineStatusDto machine)
     {
+        // 全ステータスが0の場合はERR_STATUSとして扱う
+        bool allStatusZero = machine.ReadyStatus != true
+        && machine.RunStatus != true
+        && machine.WaitStatus != true
+        && machine.ArrangeStatus != true
+        && machine.StopStatus != true
+        && machine.ErrStatus != true;
+
+        if (allStatusZero) return "status-error";
+
+        // 優先順位: ERR > STOP > 材料アラーム > ARRANGE > WAIT = RUN = READY
         if (machine.ErrStatus == true) return "status-error";
         if (machine.StopStatus == true) return "status-stopped";
-        if (machine.RunStatus == true) return "status-running";
-        if (machine.WaitStatus == true) return "status-material";
-        if (machine.ReadyStatus == true) return "status-maintenance";
+        if (machine.MaterialAlarm) return "status-material";
+        if (machine.ArrangeStatus == true) return "status-arrange";
+        if (machine.WaitStatus == true) return "status-normal";
+        if (machine.RunStatus == true) return "status-normal";
+        if (machine.ReadyStatus == true) return "status-normal";
         return "";
     }
 

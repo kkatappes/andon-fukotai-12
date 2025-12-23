@@ -13,6 +13,7 @@ public class AndonDataService : IAndonDataService
 {
     private readonly AndonDbContext _dbContext;
     private readonly IMasterDataCache _masterCache;
+    private readonly IPlcDataCache _plcCache;
     private readonly ILogger<AndonDataService> _logger;
     private readonly IConfiguration _configuration;
     private readonly string _linkedServerQuery;
@@ -20,11 +21,13 @@ public class AndonDataService : IAndonDataService
     public AndonDataService(
         AndonDbContext dbContext,
         IMasterDataCache masterCache,
+        IPlcDataCache plcCache,
         ILogger<AndonDataService> logger,
         IConfiguration configuration)
     {
         _dbContext = dbContext;
         _masterCache = masterCache;
+        _plcCache = plcCache;
         _logger = logger;
         _configuration = configuration;
 
@@ -61,7 +64,8 @@ public class AndonDataService : IAndonDataService
                 .FromSqlRaw(sql)
                 .ToListAsync();
 
-            _logger.LogDebug("D_STATUSデータ取得: {Count}件", statusList.Count);
+            var jstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time"));
+            _logger.LogInformation("[{JstTime:yyyy-MM-dd HH:mm:ss}] D_STATUSデータ取得: {Count}件", jstTime, statusList.Count);
 
             return statusList.Select(MapToDto).ToList();
         }
@@ -120,6 +124,7 @@ public class AndonDataService : IAndonDataService
             ReadyStatus = status.ReadyStatus,
             RunStatus = status.RunStatus,
             WaitStatus = status.WaitStatus,
+            ArrangeStatus = status.ArrangeStatus,
             StopStatus = status.StopStatus,
             ErrStatus = status.ErrStatus
         };
@@ -175,6 +180,9 @@ public class AndonDataService : IAndonDataService
             }
         }
 
+        // 材料アラームチェック（JSONのXデバイスから取得）
+        CheckMaterialAlarm(dto);
+
         // StatusMessage組み立て
         dto.StatusMessage = BuildStatusMessage(dto);
 
@@ -182,25 +190,87 @@ public class AndonDataService : IAndonDataService
     }
 
     /// <summary>
+    /// 材料アラームをチェック
+    /// </summary>
+    private void CheckMaterialAlarm(MachineStatusDto dto)
+    {
+        // 装置番号とXデバイスの対応マッピング
+        var materialAlarmMapping = new Dictionary<byte, (string DeviceNumber, string AlarmName)>
+        {
+            { 1, ("X576", "完成品トレー不足") },  // FAW-A
+            { 2, ("X376", "完成品トレー不足") },  // FAW-B
+            { 3, ("X2AC", "完成品トレー不足") },  // FAW-CD
+            { 4, ("X24D", "完成品トレー不足") },  // FAW-E
+            { 5, ("X1BA", "完成品トレー満杯") }   // HMA
+        };
+
+        if (materialAlarmMapping.TryGetValue(dto.MachineNo, out var mapping))
+        {
+            var deviceValue = _plcCache.GetValueByDeviceNumber(mapping.DeviceNumber);
+
+            if (deviceValue == 1)
+            {
+                dto.MaterialAlarm = true;
+                dto.MaterialAlarmName = mapping.AlarmName;
+
+                _logger.LogDebug(
+                    "材料アラーム検出: Machine={MachineNo}, Device={Device}, Name={Name}",
+                    dto.MachineNo, mapping.DeviceNumber, mapping.AlarmName);
+            }
+            else
+            {
+                dto.MaterialAlarm = false;
+                dto.MaterialAlarmName = null;
+            }
+        }
+        else
+        {
+            dto.MaterialAlarm = false;
+            dto.MaterialAlarmName = null;
+        }
+    }
+
+    /// <summary>
     /// 表示用状態メッセージを組み立て
     /// </summary>
     private string BuildStatusMessage(MachineStatusDto dto)
     {
-        // 優先順位: エラー > 待機 > 稼働 > 準備
-        if (!string.IsNullOrEmpty(dto.ErrName))
-            return dto.ErrName;
+        // 全ステータスが0の場合はERR_STATUSとして扱う
+        bool allStatusZero = dto.ReadyStatus != true
+                          && dto.RunStatus != true
+                          && dto.WaitStatus != true
+                          && dto.ArrangeStatus != true
+                          && dto.StopStatus != true
+                          && dto.ErrStatus != true;
 
-        if (!string.IsNullOrEmpty(dto.WaitName))
-            return dto.WaitName;
+        if (allStatusZero)
+        {
+            // 全て0の場合はエラーとして扱う
+            return !string.IsNullOrEmpty(dto.ErrName) ? dto.ErrName : "異常";
+        }
+
+        // 優先順位: ERR_STATUS > STOP_STATUS > 材料アラーム > ARRANGE_STATUS > WAIT_STATUS = RUN_STATUS = READY_STATUS
+        if (dto.ErrStatus == true)
+            return !string.IsNullOrEmpty(dto.ErrName) ? dto.ErrName : "異常";
+
+        if (dto.StopStatus == true)
+            return "停止中";
+
+        // 材料アラーム
+        if (dto.MaterialAlarm)
+            return !string.IsNullOrEmpty(dto.MaterialAlarmName) ? dto.MaterialAlarmName : "材料アラーム";
+
+        if (dto.ArrangeStatus == true)
+            return "段取り中";
+
+        if (dto.WaitStatus == true)
+            return !string.IsNullOrEmpty(dto.WaitName) ? dto.WaitName : "待機中";
 
         if (dto.RunStatus == true)
             return "稼働中";
 
         if (dto.ReadyStatus == true)
-            return "準備";
-
-        if (dto.StopStatus == true)
-            return "停止";
+            return "準備中";
 
         return "--";
     }

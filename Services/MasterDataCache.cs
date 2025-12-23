@@ -76,7 +76,8 @@ public class MasterDataCache : IMasterDataCache
             }
             ErrMaster = errDict;
 
-            _logger.LogDebug("エラーマスター読み込み完了: {Count}件", ErrMaster.Count);
+            var errJstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time"));
+            _logger.LogInformation("[{JstTime:yyyy-MM-dd HH:mm:ss}] エラーマスター読み込み完了: {Count}件", errJstTime, ErrMaster.Count);
 
             // M_WAIT読み込み
             _logger.LogInformation("M_WAITマスター読み込み開始");
@@ -103,7 +104,8 @@ public class MasterDataCache : IMasterDataCache
             }
             WaitMaster = waitDict;
 
-            _logger.LogDebug("待機マスター読み込み完了: {Count}件", WaitMaster.Count);
+            var waitJstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time"));
+            _logger.LogInformation("[{JstTime:yyyy-MM-dd HH:mm:ss}] 待機マスター読み込み完了: {Count}件", waitJstTime, WaitMaster.Count);
 
             // M_STOP読み込み
             _logger.LogInformation("M_STOPマスター読み込み開始");
@@ -130,7 +132,8 @@ public class MasterDataCache : IMasterDataCache
             }
             StopMaster = stopDict;
 
-            _logger.LogDebug("停止マスター読み込み完了: {Count}件", StopMaster.Count);
+            var stopJstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time"));
+            _logger.LogInformation("[{JstTime:yyyy-MM-dd HH:mm:ss}] 停止マスター読み込み完了: {Count}件", stopJstTime, StopMaster.Count);
 
             _logger.LogInformation(
                 "マスターデータ更新完了（ERR:{ErrCount}, WAIT:{WaitCount}, STOP:{StopCount}）",
