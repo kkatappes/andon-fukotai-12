@@ -2,6 +2,7 @@ C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\publish\.
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\publish\10-60-37-100_8192_bbbb.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\publish\10-60-37-98_8192_bbbb.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\publish\appsettings.json
+C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\publish\appsettings.LinkedServer.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\publish\src\10-60-37-2_8192_aaaa.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\publish\src\10-60-37-9_8192_aaaa.json
 C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\publish\12-fukotai.exe

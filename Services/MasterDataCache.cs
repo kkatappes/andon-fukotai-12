@@ -30,14 +30,27 @@ public class MasterDataCache : IMasterDataCache
         _logger = logger;
         _configuration = configuration;
 
-        // リンクサーバー設定を読み込み
-        var useDatabaseName = _configuration.GetValue<string>("AndonSettings:UseDatabaseName") ?? "AndonDatabase_himeji1";
-        var prefix = useDatabaseName == "AndonDatabase_himeji2" ? "Himeji2" : "Himeji1";
+        // UseLinkedServerフラグを読み取り
+        var useLinkedServer = _configuration.GetValue<bool>("DatabaseConnectionSettings:UseLinkedServer");
 
-        var linkedServer = _configuration.GetValue<string>($"LinkedServerSettings:{prefix}_LinkedServerName") ?? "10.60.40.14";
-        var database = _configuration.GetValue<string>($"LinkedServerSettings:{prefix}_DatabaseName") ?? "KadouMoni3_144";
+        if (useLinkedServer)
+        {
+            // リンクサーバーモード: [LinkedServer].[Database].[dbo]
+            var useDatabaseName = _configuration.GetValue<string>("AndonSettings:UseDatabaseName") ?? "AndonDatabase_himeji1";
+            var prefix = useDatabaseName == "AndonDatabase_himeji2" ? "Himeji2" : "Himeji1";
 
-        _linkedServerQuery = $"[{linkedServer}].[{database}].[dbo]";
+            var linkedServer = _configuration.GetValue<string>($"LinkedServerSettings:{prefix}_LinkedServerName") ?? "10.60.40.14";
+            var database = _configuration.GetValue<string>($"LinkedServerSettings:{prefix}_DatabaseName") ?? "KadouMoni3_144";
+
+            _linkedServerQuery = $"[{linkedServer}].[{database}].[dbo]";
+            _logger.LogInformation("リンクサーバーモード: {Query} (UseDatabaseName: {UseDatabaseName})", _linkedServerQuery, useDatabaseName);
+        }
+        else
+        {
+            // 直接接続モード: [dbo] のみ
+            _linkedServerQuery = "[dbo]";
+            _logger.LogInformation("直接接続モード: {Query}", _linkedServerQuery);
+        }
     }
 
     /// <summary>

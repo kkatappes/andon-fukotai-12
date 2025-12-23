@@ -516,3 +516,4 @@ C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\src\10-60
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\tqy0du2p2i-tkazyqvjqj.gz
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\h8cvcorhcy-oqngq7snfn.gz
 C:\Users\1010821\Desktop\project\12-fukotai\obj\Release\net9.0\win-x64\compressed\mn83e19yn1-oqngq7snfn.gz
+C:\Users\1010821\Desktop\project\12-fukotai\bin\Release\net9.0\win-x64\appsettings.LinkedServer.json
