@@ -49,7 +49,17 @@ if (string.IsNullOrEmpty(connectionString))
 }
 
 builder.Services.AddDbContext<AndonDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString, sqlOptions =>
+    {
+        // 一時的な接続エラーに対して自動リトライを有効化
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 3,
+            maxRetryDelay: TimeSpan.FromSeconds(5),
+            errorNumbersToAdd: null);
+
+        // コマンドタイムアウトを60秒に設定
+        sqlOptions.CommandTimeout(60);
+    }));
 
 builder.Services.AddScoped<IAndonDataService, AndonDataService>();
 builder.Services.AddSingleton<IMasterDataCache, MasterDataCache>();

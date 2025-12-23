@@ -1,7 +1,7 @@
 @page "/"
 @using _12_fukotai.Models
 @inject IPlcDataCache PlcCache
-@inject IAndonDataService AndonDataService
+@inject IServiceScopeFactory ScopeFactory
 @inject IConfiguration Configuration
 @inject ILogger<Himeji1> Logger
 @implements IDisposable
@@ -160,7 +160,12 @@
         try
         {
             Logger.LogInformation("RefreshSqlData開始");
-            var allMachines = await AndonDataService.GetMachineStatusListAsync();
+
+            // 新しいスコープを作成してAndonDataServiceを取得
+            using var scope = ScopeFactory.CreateScope();
+            var andonDataService = scope.ServiceProvider.GetRequiredService<IAndonDataService>();
+
+            var allMachines = await andonDataService.GetMachineStatusListAsync();
             Logger.LogInformation("GetMachineStatusListAsync完了: {Count}件", allMachines.Count);
 
             // 表示順序を指定: MACHINE_NO 2→3→4→5→1
