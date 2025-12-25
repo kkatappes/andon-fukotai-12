@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("12-fukotai")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+477e988e1125c10deb3c9d894a02d3f813c7892f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+921db9db05624dae1249991f2daab7cd18d43b3f")]
 [assembly: System.Reflection.AssemblyProductAttribute("12-fukotai")]
 [assembly: System.Reflection.AssemblyTitleAttribute("12-fukotai")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
